@@ -9,7 +9,7 @@
 #include "Output.h"
 #include "Arduino.h"
 
-enum Mode {INACTIVE, BREATHE, HEARTBEAT, FLASH, STROBE};
+enum Mode {INACTIVE, BREATHE, HEARTBEAT, FLASH, STROBE, BLINK};
 
 class Pulse : public Output
 {
@@ -22,6 +22,7 @@ class Pulse : public Output
         uint16_t _heartbeat[4] = {20, 100, 20, 2000};
         uint16_t _strobe[2] = {20, 1000};
         uint16_t _flash[2] = {500, 500};
+        uint16_t _blink[2] = {20, 5000};
 
         void _setMode(Mode mode);           
 
@@ -50,6 +51,12 @@ class Pulse : public Output
          */
         void strobe();
         
+        /* 
+         * Blink the led
+         */
+        void blink();
+        
+
         /* 
          * Call this every loop to update the pulse led
          */

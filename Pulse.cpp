@@ -18,6 +18,7 @@ void Pulse::breathe() { this->_setMode(BREATHE); }
 void Pulse::strobe() { this->_setMode(STROBE); }
 void Pulse::heartbeat() { this->_setMode(HEARTBEAT); }
 void Pulse::flash() { this->_setMode(FLASH); }
+void Pulse::blink() { this->_setMode(BLINK); }
 
 void Pulse::stop()
 {
@@ -59,6 +60,15 @@ void Pulse::update()
                 this->toggle();
                 this->_lastInterval = millis();
                 if(++this->_count >= (sizeof(this->_strobe) / sizeof(this->_strobe[0]))) this->_count = 0;
+            }
+        break;
+
+        case BLINK:
+            if(millis() - this->_lastInterval >= this->_blink[this->_count])
+            {
+                this->toggle();
+                this->_lastInterval = millis();
+                if(++this->_count >= (sizeof(this->_blink) / sizeof(this->_blink[0]))) this->_count = 0;
             }
         break;
 
