@@ -26,7 +26,7 @@ void Pulse::stop()
     this->_mode = INACTIVE;
 }
 
-void Pulse::update()
+void Pulse::tick()
 {
     switch (this->_mode)
     {

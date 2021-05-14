@@ -60,7 +60,7 @@ class Pulse : public Output
         /* 
          * Call this every loop to update the pulse led
          */
-        void update();
+        void tick();
 
         /*
          * stop flashing!
