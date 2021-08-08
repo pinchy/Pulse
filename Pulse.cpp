@@ -10,7 +10,8 @@ void Pulse::_setMode(Mode mode)
         this->_mode = mode;
         this->_count = 0;
         this->_lastInterval = millis();
-        this->on();
+
+        if(this->_mode != INACTIVE) this->on(); // start the mode by turning the led on
     }
 }
 
@@ -26,6 +27,15 @@ void Pulse::stop()
     this->_mode = INACTIVE;
 }
 
+void Pulse::timeout(uint32_t timeout, Mode modeOnTimeout)
+{
+    this->_timeout = timeout;
+    this->_modeOnTimeout = modeOnTimeout;
+    this->_setMode(TIMEOUT);
+}
+
+
+
 void Pulse::tick()
 {
     switch (this->_mode)
@@ -38,39 +48,46 @@ void Pulse::tick()
 
         case HEARTBEAT:
             if(millis() - this->_lastInterval >= this->_heartbeat[this->_count])
-            {
-                this->toggle();
+            {               
                 this->_lastInterval = millis();
                 if(++this->_count >= (sizeof(this->_heartbeat) / sizeof(this->_heartbeat[0]))) this->_count = 0;
+                this->set(!(this->_count % 2)); // even is on
             }
         break;
         
         case FLASH:
             if(millis() - this->_lastInterval >= this->_flash[this->_count])
             {
-                this->toggle();
                 this->_lastInterval = millis();
                 if(++this->_count >= (sizeof(this->_flash) / sizeof(this->_flash[0]))) this->_count = 0;
+                this->set(!(this->_count % 2)); // even is on
             }
         break;
 
         case STROBE:
             if(millis() - this->_lastInterval >= this->_strobe[this->_count])
             {
-                this->toggle();
                 this->_lastInterval = millis();
                 if(++this->_count >= (sizeof(this->_strobe) / sizeof(this->_strobe[0]))) this->_count = 0;
+                this->set(!(this->_count % 2)); // even is on
             }
         break;
 
         case BLINK:
             if(millis() - this->_lastInterval >= this->_blink[this->_count])
             {
-                this->toggle();
                 this->_lastInterval = millis();
                 if(++this->_count >= (sizeof(this->_blink) / sizeof(this->_blink[0]))) this->_count = 0;
+                this->set(!(this->_count % 2)); // even is on
             }
         break;
+
+        case TIMEOUT:
+            if(millis() - this->_lastInterval >= this->_timeout)
+            {
+                this->off();
+                this->_setMode(this->_modeOnTimeout);
+            }
 
         case INACTIVE:
         break;

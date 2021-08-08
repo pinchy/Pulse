@@ -9,13 +9,16 @@
 #include "Output.h"
 #include "Arduino.h"
 
-enum Mode {INACTIVE, BREATHE, HEARTBEAT, FLASH, STROBE, BLINK};
+enum Mode {INACTIVE, BREATHE, HEARTBEAT, FLASH, STROBE, BLINK, TIMEOUT};
 
 class Pulse : public Output
 {
     private:
         uint32_t _lastInterval;
+        uint32_t _timeout;
+
         Mode _mode;
+        Mode _modeOnTimeout;
         uint8_t _count;    
 
         // even elements are ON, odd are OFF. In ms
@@ -66,6 +69,12 @@ class Pulse : public Output
          * stop flashing!
          */
         void stop();
+
+
+        /*
+            Turn on for timeout ms
+        */
+        void timeout(uint32_t timeout, Mode modeOnTimeout = INACTIVE);
         
 }; 
 
