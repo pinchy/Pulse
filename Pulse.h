@@ -32,7 +32,7 @@ class Pulse : public Output
     public:
     
 
-        Pulse(int p, int s);
+        Pulse(int p, int s = LOW);
 
         /* 
          * Breath the led, pulse in and out using PWM
