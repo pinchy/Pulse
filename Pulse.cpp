@@ -1,7 +1,7 @@
 #include "Pulse.h"
 #include <Arduino.h>
 
-Pulse::Pulse(int p, int s) : Output {p, s} {}
+Pulse::Pulse(int p, int s, int i) : Output {p, s, i} {}
 
 void Pulse::_setMode(Mode mode)
 {
