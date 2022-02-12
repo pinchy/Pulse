@@ -11,27 +11,27 @@ void Pulse::_setMode(Mode mode)
         this->_count = 0;
         this->_lastInterval = millis();
 
-        if(this->_mode != INACTIVE) this->on(); // start the mode by turning the led on
+        if(this->_mode != PULSE_INACTIVE) this->on(); // start the mode by turning the led on
     }
 }
 
-void Pulse::breathe() { this->_setMode(BREATHE); }
-void Pulse::strobe() { this->_setMode(STROBE); }
-void Pulse::heartbeat() { this->_setMode(HEARTBEAT); }
-void Pulse::flash() { this->_setMode(FLASH); }
-void Pulse::blink() { this->_setMode(BLINK); }
+void Pulse::breathe() { this->_setMode(PULSE_BREATHE); }
+void Pulse::strobe() { this->_setMode(PULSE_STROBE); }
+void Pulse::heartbeat() { this->_setMode(PULSE_HEARTBEAT); }
+void Pulse::flash() { this->_setMode(PULSE_FLASH); }
+void Pulse::blink() { this->_setMode(PULSE_BLINK); }
 
 void Pulse::stop()
 {
     this->off();
-    this->_mode = INACTIVE;
+    this->_mode = PULSE_INACTIVE;
 }
 
 void Pulse::timeout(uint32_t timeout, Mode modeOnTimeout)
 {
     this->_timeout = timeout;
     this->_modeOnTimeout = modeOnTimeout;
-    this->_setMode(TIMEOUT);
+    this->_setMode(PULSE_TIMEOUT);
 }
 
 
@@ -40,13 +40,13 @@ void Pulse::tick()
 {
     switch (this->_mode)
     {
-        case BREATHE:
+        case PULSE_BREATHE:
 
             
 
         break;
 
-        case HEARTBEAT:
+        case PULSE_HEARTBEAT:
             if(millis() - this->_lastInterval >= this->_heartbeat[this->_count])
             {               
                 this->_lastInterval = millis();
@@ -55,7 +55,7 @@ void Pulse::tick()
             }
         break;
         
-        case FLASH:
+        case PULSE_FLASH:
             if(millis() - this->_lastInterval >= this->_flash[this->_count])
             {
                 this->_lastInterval = millis();
@@ -64,7 +64,7 @@ void Pulse::tick()
             }
         break;
 
-        case STROBE:
+        case PULSE_STROBE:
             if(millis() - this->_lastInterval >= this->_strobe[this->_count])
             {
                 this->_lastInterval = millis();
@@ -73,7 +73,7 @@ void Pulse::tick()
             }
         break;
 
-        case BLINK:
+        case PULSE_BLINK:
             if(millis() - this->_lastInterval >= this->_blink[this->_count])
             {
                 this->_lastInterval = millis();
@@ -82,14 +82,14 @@ void Pulse::tick()
             }
         break;
 
-        case TIMEOUT:
+        case PULSE_TIMEOUT:
             if(millis() - this->_lastInterval >= this->_timeout)
             {
                 this->off();
                 this->_setMode(this->_modeOnTimeout);
             }
 
-        case INACTIVE:
+        case PULSE_INACTIVE:
         break;
 
     }

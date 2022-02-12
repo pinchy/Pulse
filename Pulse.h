@@ -9,7 +9,7 @@
 #include "Output.h"
 #include "Arduino.h"
 
-enum Mode {INACTIVE, BREATHE, HEARTBEAT, FLASH, STROBE, BLINK, TIMEOUT};
+enum Mode {PULSE_INACTIVE, PULSE_BREATHE, PULSE_HEARTBEAT, PULSE_FLASH, PULSE_STROBE, PULSE_BLINK, PULSE_TIMEOUT};
 
 class Pulse : public Output
 {
@@ -74,7 +74,7 @@ class Pulse : public Output
         /*
             Turn on for timeout ms
         */
-        void timeout(uint32_t timeout, Mode modeOnTimeout = INACTIVE);
+        void timeout(uint32_t timeout, Mode modeOnTimeout = PULSE_INACTIVE);
         
 }; 
 
