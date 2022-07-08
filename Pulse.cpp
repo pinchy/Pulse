@@ -29,6 +29,7 @@ void Pulse::stop()
     this->_mode = PULSE_INACTIVE;
 }
 
+
 void Pulse::timeout(uint32_t timeout, Mode modeOnTimeout)
 {
     this->_timeout = timeout;
