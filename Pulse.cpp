@@ -13,7 +13,7 @@ void Pulse::_setMode(Mode mode)
 
         this->_lastInterval = millis();
 
-        if (this->_mode != PULSE_INACTIVE) this->on();   // start the mode by turning the led on
+        if (this->_mode != PULSE_INACTIVE) this->set(true);   // start the mode by turning the led on
     }
 }
 
@@ -29,6 +29,17 @@ void Pulse::stop()
     this->_mode = PULSE_INACTIVE;
 }
 
+void Pulse::on(void)
+{
+    this->_mode = PULSE_INACTIVE;
+    this->set(true);
+}
+
+void Pulse::off(void)
+{
+    this->_mode = PULSE_INACTIVE;
+    this->set(false);
+}
 
 void Pulse::timeout(uint32_t timeout, Mode modeOnTimeout)
 {
@@ -84,7 +95,7 @@ void Pulse::tick()
         case PULSE_TIMEOUT:
             if (millis() - this->_lastInterval >= this->_timeout)
             {
-                this->off();
+                this->set(false);
                 this->_setMode(this->_modeOnTimeout);
             }
 

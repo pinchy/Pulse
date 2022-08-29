@@ -78,6 +78,9 @@ class Pulse : public Output
         void stop();
 
 
+        void on(void);
+        void off(void);
+
         /*
             Turn on for timeout ms
         */
