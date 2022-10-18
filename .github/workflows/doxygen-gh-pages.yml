@@ -10,9 +10,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        name: Checkout
-      - uses: ./.github/actions/action.yml
+      - uses: deploy: ./.github/actions/action.yml
         name: Doxygen
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
