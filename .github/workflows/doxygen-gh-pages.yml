@@ -7,12 +7,17 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  documentation:
     runs-on: ubuntu-latest
     steps:
-      - uses: DenverCoder1/doxygen-github-pages-action@v1.1.0
+      - uses: actions/checkout@v3
+        name: Checkout
+      - uses: ./.github/actions
+        name: Doxygen
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
           folder: ./docs/html
           config_file: ./.github/actions/Doxyfile
+
+
