@@ -10,7 +10,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: .github/doxygen-action.yml
+      - uses: doxygen-action.yml
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
