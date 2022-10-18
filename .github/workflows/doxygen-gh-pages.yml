@@ -4,11 +4,17 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: .github/workflows/doxygen-action.yml
+      - uses: .github/doxygen-action.yml
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: docs/html
+          config_file: .Doxyfile
+
+
