@@ -9,7 +9,7 @@
 #include "Arduino.h"
 #include "Output.h"
 
-enum Mode
+enum PulseMode_t
 {
     PULSE_INACTIVE,
     PULSE_BREATHE,
@@ -22,69 +22,79 @@ enum Mode
 
 class Pulse : public Output
 {
-    private:
-        uint32_t _lastInterval;
-        uint32_t _timeout;
+private:
+    uint32_t _lastInterval;
+    uint32_t _timeout;
 
-        Mode _mode;
-        Mode _modeOnTimeout;
-        uint8_t _count;
+    PulseMode_t _mode;
+    PulseMode_t _modeOnTimeout;
+    uint8_t _count;
 
-        // even elements are ON, odd are OFF. In ms
-        uint16_t _heartbeat[4] = {20, 100, 20, 2000};
-        uint16_t _strobe[2] = {20, 1000};
-        uint16_t _flash[2] = {500, 500};
-        uint16_t _blink[2] = {20, 5000};
+    // even elements are ON, odd are OFF. In ms
+    uint16_t _heartbeat[4] = {20, 100, 20, 2000};
+    uint16_t _strobe[2] = {20, 1000};
+    uint16_t _flash[2] = {500, 500};
+    uint16_t _blink[2] = {20, 5000};
 
-        void _setMode(Mode mode);
+    void _setMode(PulseMode_t mode);
 
-    public:
-        Pulse(void);
-        Pulse(int p, int s = LOW, int i = false);
+public:
+    Pulse(void);
+    Pulse(int p, int s = LOW, int i = false);
 
-        /*
-         * Breath the led, pulse in and out using PWM
-         */
-        void breathe();
+    /**
+     * @brief Breath the led, pulse in and out using PWM
+     */
+    void breathe();
 
-        /*
-         * Flash the led like a heart-beat
-         */
-        void heartbeat();
+    /**
+     * @brief Flash the led like a heart-beat
+     */
+    void heartbeat();
 
-        /*
-         * Flash the led continously
-         */
-        void flash();
+    /**
+     * @brief Flash the led continously
+     */
+    void flash();
 
-        /*
-         * Strobe the led
-         */
-        void strobe();
+    /**
+     * @brief Strobe the led
+     */
+    void strobe();
 
-        /*
-         * Blink the led
-         */
-        void blink();
+    /**
+     * @brief Blink the led
+     */
+    void blink();
 
-        /*
-         * Call this every loop to update the pulse led
-         */
-        void tick();
+    /**
+     * @brief Call this every loop to update the pulse led
+     */
+    void tick();
 
-        /*
-         * stop flashing!
-         */
-        void stop();
+    /**
+     * @brief stop flashing!
+     */
+    void stop();
 
+    /**
+     * @brief Turn the led ON
+     *
+     */
+    void on(void);
 
-        void on(void);
-        void off(void);
+    /**
+     * @brief turn the led OFF
+     *
+     */
+    void off(void);
 
-        /*
-            Turn on for timeout ms
-        */
-        void timeout(uint32_t timeout, Mode modeOnTimeout = PULSE_INACTIVE);
+    /**
+     * @brief Turn the led ON and then timeout
+     * @param timeout time to timeout (ms)
+     * @param modeOnTimeout pulse mode to enable on timeout (Default PULSE_INACTIVE)
+     */
+    void timeout(uint32_t timeout, PulseMode_t modeOnTimeout = PULSE_INACTIVE);
 };
 
 #endif
