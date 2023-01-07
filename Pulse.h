@@ -6,8 +6,8 @@
 #ifndef PULSE_H
 #define PULSE_H
 
-#include "Arduino.h"
-#include "Output.h"
+#include <Arduino.h>
+#include <Output.h>
 
 enum PulseMode_t
 {
@@ -40,7 +40,7 @@ class Pulse : public Output
 
     public:
         Pulse(void);
-        Pulse(int p, int s = LOW, int i = false);
+        Pulse(uint8_t p, bool s = LOW, bool i = false);
 
         /**
          * @brief Breath the led, pulse in and out using PWM
