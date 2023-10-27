@@ -1,7 +1,7 @@
 #include "Pulse.h"
 
 Pulse::Pulse(void) {}
-Pulse::Pulse(uint8_t p, bool s, bool i) : Output{p, s, i} {}
+Pulse::Pulse(int p, bool s, bool i) : Output{p, s, i} {}
 
 void Pulse::_setMode(PulseMode_t mode)
 {

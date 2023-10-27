@@ -40,7 +40,7 @@ class Pulse : public Output
 
     public:
         Pulse(void);
-        Pulse(uint8_t p, bool s = LOW, bool i = false);
+        Pulse(int p, bool s = LOW, bool i = false);
 
         /**
          * @brief Breath the led, pulse in and out using PWM
