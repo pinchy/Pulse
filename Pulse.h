@@ -34,7 +34,7 @@ class Pulse : public Output
         uint16_t _heartbeat[4] = {20, 100, 20, 2000};
         uint16_t _strobe[2] = {20, 1000};
         uint16_t _flash[2] = {500, 500};
-        uint16_t _blink[2] = {20, 5000};
+        uint16_t _blink[2] = {125, 125};
 
         void _setMode(PulseMode_t mode);
 
